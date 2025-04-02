@@ -32,8 +32,26 @@
             verbs.forEach((verb, index) => {
                 let pastInput = document.getElementById(`past-${index}`).value.trim();
                 let participleInput = document.getElementById(`participle-${index}`).value.trim();
-                document.getElementById(`past-${index}`).style.backgroundColor = (pastInput === verb.past) ? "lightgreen" : "pink";
-                document.getElementById(`participle-${index}`).style.backgroundColor = (participleInput === verb.participle) ? "lightgreen" : "pink";
+                let pastCorrect = document.getElementById(`past-correct-${index}`);
+                let participleCorrect = document.getElementById(`participle-correct-${index}`);
+                
+                if (pastInput === verb.past) {
+                    document.getElementById(`past-${index}`).style.backgroundColor = "lightgreen";
+                    pastCorrect.innerText = "";
+                } else {
+                    document.getElementById(`past-${index}`).style.backgroundColor = "pink";
+                    pastCorrect.innerText = `Correct: ${verb.past}`;
+                    pastCorrect.style.color = "red";
+                }
+                
+                if (participleInput === verb.participle) {
+                    document.getElementById(`participle-${index}`).style.backgroundColor = "lightgreen";
+                    participleCorrect.innerText = "";
+                } else {
+                    document.getElementById(`participle-${index}`).style.backgroundColor = "pink";
+                    participleCorrect.innerText = `Correct: ${verb.participle}`;
+                    participleCorrect.style.color = "red";
+                }
             });
         }
 
@@ -53,8 +71,8 @@
             
             let randomIndex = Math.floor(Math.random() * sentences.length);
             let sentence = sentences[randomIndex];
-            let randomVerb = verbs[randomIndex];
-            let correctAnswer = randomVerb.past;
+            let randomVerb = verbs[randomIndex % verbs.length];
+            let correctAnswer = [randomVerb.past, randomVerb.participle][Math.floor(Math.random() * 2)];
             
             document.getElementById("sentence").innerText = sentence;
             document.getElementById("answer").dataset.correct = correctAnswer;
@@ -79,8 +97,8 @@
             verbs.forEach((verb, index) => {
                 document.write(`<tr>
                     <td>${verb.base}</td>
-                    <td><input type="text" id="past-${index}"></td>
-                    <td><input type="text" id="participle-${index}"></td>
+                    <td><input type="text" id="past-${index}"><span id="past-correct-${index}"></span></td>
+                    <td><input type="text" id="participle-${index}"><span id="participle-correct-${index}"></span></td>
                 </tr>`);
             });
         </script>
