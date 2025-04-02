@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verb Study App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #007BFF;
+            color: white;
+        }
+        input {
+            width: 90%;
+            padding: 5px;
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Study English Verbs</h1>
+    <table>
+        <tr>
+            <th>Base Form</th>
+            <th>Simple Past</th>
+            <th>Past Participle</th>
+        </tr>
+        <script>
+            const verbs = [
+                ["eat", "ate", "eaten"],
+                ["fall", "fell", "fallen"],
+                ["feed", "fed", "fed"],
+                ["feel", "felt", "felt"],
+                ["fight", "fought", "fought"],
+                ["find", "found", "found"],
+                ["fly", "flew", "flown"],
+                ["forget", "forgot", "forgotten"],
+                ["forgive", "forgave", "forgiven"],
+                ["freeze", "froze", "frozen"],
+                ["get", "got", "gotten"],
+                ["give", "gave", "given"],
+                ["go", "went", "gone"],
+                ["grow", "grew", "grown"],
+                ["have", "had", "had"],
+                ["hear", "heard", "heard"],
+                ["hide", "hid", "hidden"],
+                ["hit", "hit", "hit"],
+                ["hold", "held", "held"],
+                ["know", "knew", "known"]
+            ];
+            
+            verbs.forEach((verb, index) => {
+                document.write(`<tr>
+                    <td>${verb[0]}</td>
+                    <td><input type='text' id='past${index}'></td>
+                    <td><input type='text' id='participle${index}'></td>
+                </tr>`);
+            });
+        </script>
+    </table>
+    <button onclick="checkAnswers()">Check Answers</button>
+    <p id="result"></p>
+    <script>
+        function checkAnswers() {
+            let correct = 0;
+            verbs.forEach((verb, index) => {
+                let past = document.getElementById(`past${index}`).value.trim().toLowerCase();
+                let participle = document.getElementById(`participle${index}`).value.trim().toLowerCase();
+                if (past === verb[1] && participle === verb[2]) {
+                    correct++;
+                }
+            });
+            document.getElementById("result").innerText = `You got ${correct} out of ${verbs.length} correct!`;
+        }
+    </script>
+</body>
+</html>
